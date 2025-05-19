@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dashboard-links a {
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.3s, color 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .dashboard-links a:not(.logout-link) {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .dashboard-links a:not(.logout-link):hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .logout-link {
+            color: #fff;
+            background-color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .logout-link:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome {{ username }}</h2>
+
+        <div class="dashboard-links">
+            <a href="{{ url_for('patient_bp.book') }}">Book Appointment</a>
+            <a href="{{ url_for('patient_bp.view_appointments') }}">View Appointments</a>
+            <a href="{{ url_for('patient_bp.billing') }}">Billing Info</a>
+            <a href="{{ url_for('patient_bp.logout') }}" class="logout-link">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

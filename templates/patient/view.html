@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Appointments</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        li {
+            background-color: #e9ecef;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+        }
+
+        .status {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .status.confirmed {
+            color: green;
+        }
+
+        .status.pending {
+            color: orange;
+        }
+
+        .status.cancelled {
+            color: red;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Appointments</h2>
+        <ul>
+          {% for appt in appointments %}
+            <li>
+              Appointment with Dr. {{ appt.doctor_name }} <br>
+              on {{ appt.date }} at {{ appt.time }} <br>
+              <span class="status {{ appt.status|lower }}">{{ appt.status }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <a href="{{ url_for('patient_bp.dashboard') }}">Back</a>
+    </div>
+</body>
+</html>

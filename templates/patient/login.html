@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Login</title>
+    <style>
+      * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+      }
+
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f2f5;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .container {
+          background: #ffffff;
+          padding: 40px;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+          width: 90%;
+          max-width: 400px;
+          text-align: center;
+      }
+
+      h2 {
+          color: #333;
+          margin-bottom: 20px;
+      }
+
+      form {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          margin-bottom: 15px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+          padding: 12px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          font-size: 14px;
+      }
+
+      input[type="submit"] {
+          background-color: #007bff;
+          color: white;
+          padding: 12px;
+          border: none;
+          border-radius: 6px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          width: 100%;
+      }
+
+      input[type="submit"]:hover {
+          background-color: #0056b3;
+      }
+
+      .link-text {
+          margin: 10px 0;
+      }
+
+      .link-text a {
+          color: #007bff;
+          text-decoration: none;
+          font-weight: bold;
+      }
+
+      .link-text a:hover {
+          text-decoration: underline;
+      }
+
+      .back-btn {
+          display: block;
+          background-color: #6c757d;
+          color: white;
+          padding: 12px;
+          border: none;
+          border-radius: 6px;
+          font-weight: bold;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          width: 100%;
+          margin-top: 10px;
+      }
+
+      .back-btn:hover {
+          background-color: #5a6268;
+      }
+
+      .error-message {
+          color: red;
+          margin-top: 10px;
+      }
+  </style>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Patient Login</h2>
+
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+
+        <p class="link-text">
+            Don't have an account?
+            <a href="{{ url_for('patient_bp.signup') }}">Sign up here</a>
+        </p>
+
+        <a href="{{ url_for('choose_role') }}" class="back-btn">Back to Role Selection</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <p class="error-message">{{ message }}</p>
+          {% endfor %}
+        {% endwith %}
+    </div>
+</body>
+</html>

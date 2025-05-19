@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Patient</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #27ae60;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #219150;
+        }
+
+        .cancel-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cancel-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .cancel-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Edit Patient</h2>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input name="full_name" id="full_name" value="{{ patient.full_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender" required>
+                    <option value="Male" {% if patient.gender=='Male' %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if patient.gender=='Female' %}selected{% endif %}>Female</option>
+                    <option value="Other" {% if patient.gender=='Other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth</label>
+                <input name="date_of_birth" id="date_of_birth" type="date" value="{{ patient.date_of_birth }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input name="email" id="email" type="email" value="{{ patient.email }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact_info">Phone</label>
+                <input name="contact_info" id="contact_info" type="tel" value="{{ patient.contact_info }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea name="address" id="address" required>{{ patient.address }}</textarea>
+            </div>
+
+            <button type="submit">Update Patient</button>
+        </form>
+
+        <div class="cancel-link">
+            <a href="{{ url_for('admin_bp.view_patients') }}">← Cancel / Back to Patients List</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

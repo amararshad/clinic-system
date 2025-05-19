@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Billing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        .currency-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .currency-input span {
+            margin-right: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        button {
+            background-color: #2980b9;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #21618c;
+        }
+
+        .cancel-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cancel-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .cancel-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Edit Billing Record</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="patient_id">Patient</label>
+                <select name="patient_id" id="patient_id" required>
+                    {% for patient in patients %}
+                    <option value="{{ patient.patient_id }}" {% if patient.patient_id==billing.patient_id %}selected{%
+                        endif %}>
+                        {{ patient.patient_id }} - {{ patient.full_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="doctor_id">Doctor</label>
+                <select name="doctor_id" id="doctor_id" required>
+                    {% for doctor in doctors %}
+                    <option value="{{ doctor.doctor_id }}" {% if doctor.doctor_id==billing.doctor_id %}selected{% endif
+                        %}>
+                        {{ doctor.doctor_id }} - {{ doctor.full_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount (RM)</label>
+                <div class="currency-input">
+                    <span>RM</span>
+                    <input type="number" name="amount" id="amount" value="{{ billing.amount }}" step="0.01" min="0"
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="status" id="status" required>
+                    <option value="Pending" {% if billing.status=='Pending' %}selected{% endif %}>Pending</option>
+                    <option value="Paid" {% if billing.status=='Paid' %}selected{% endif %}>Paid</option>
+                </select>
+            </div>
+
+            <button type="submit">Update Billing</button>
+        </form>
+
+        <div class="cancel-link">
+            <a href="{{ url_for('admin_bp.view_billing') }}">← Cancel / Back to Billing Records</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

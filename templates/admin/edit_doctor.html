@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Doctor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2980b9;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #21618c;
+        }
+
+        .cancel-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cancel-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .cancel-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Edit Doctor</h2>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input name="full_name" id="full_name" value="{{ doctor.full_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization">Specialization</label>
+                <input name="specialization" id="specialization" value="{{ doctor.specialization }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="{{ doctor.email }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact_info">Phone</label>
+                <input type="text" name="contact_info" id="contact_info" value="{{ doctor.contact_info }}" required>
+            </div>
+
+            <button type="submit">Update Doctor</button>
+        </form>
+
+        <div class="cancel-link">
+            <a href="{{ url_for('admin_bp.view_doctors') }}">← Cancel / Back to Doctors List</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

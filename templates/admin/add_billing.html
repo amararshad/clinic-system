@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Billing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        .rm-prefix {
+            display: flex;
+            align-items: center;
+        }
+
+        .rm-prefix span {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        input[type="submit"] {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #219150;
+        }
+
+        .cancel-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cancel-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .cancel-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Add Billing Record</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="patient_id">Patient</label>
+                <select name="patient_id" id="patient_id" required>
+                    <option value="">-- Select Patient --</option>
+                    {% for patient in patients %}
+                    <option value="{{ patient.patient_id }}">{{ patient.patient_id }} - {{ patient.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="doctor_id">Doctor</label>
+                <select name="doctor_id" id="doctor_id" required>
+                    <option value="">-- Select Doctor --</option>
+                    {% for doctor in doctors %}
+                    <option value="{{ doctor.doctor_id }}">{{ doctor.doctor_id }} - {{ doctor.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount (RM)</label>
+                <div class="rm-prefix">
+                    <span>RM</span>
+                    <input type="number" name="amount" id="amount" step="0.01" min="0" placeholder="0.00" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="status" id="status" required>
+                    <option value="Pending">Pending</option>
+                    <option value="Paid">Paid</option>
+                </select>
+            </div>
+
+            <input type="submit" value="Submit Billing">
+        </form>
+
+        <div class="cancel-link">
+            <a href="{{ url_for('admin_bp.dashboard') }}">← Cancel / Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+
+</html>
